@@ -38,5 +38,4 @@ Conventional methods cannot process event data directly. Thus, we employ three e
 Questions about these datasets should be directed to:
 guang@in.tum.de
 
-
 ## For further details please related to our paper. 
