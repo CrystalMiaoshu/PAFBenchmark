@@ -11,7 +11,7 @@
 
 <img src="picture/1.jpg" width="500" hegiht="313" align=center />
 
-### The characteristics of the three datasets are summarized in Table 1, and they are described in detail below.
+### The characteristics of the three datasets are summarized in the following Table, and they are described in detail below.
 
 <img src="picture/5.jpg" width="500" hegiht="313" align=center />
 
@@ -31,9 +31,15 @@ Because we upload all the data to the cloud server, if the user needs any datase
 
 <img src="picture/2.jpg" width="500" hegiht="313" align=center />
 
+<<<<<<< HEAD
 Conventional methods cannot process event data directly. Thus, we employ three encoding approaches here as Frequency, SAE, (Surface of Active Events)and LIF, (Leaky60Integrate-and-Fire) to process continuous DVS event stream into a sequence of frame images, in order to fit for conventional deep learning algorithms. We provide our codes (in Python) respect to three encoding approaches shown in folders.
 
 ## Contacts
+=======
+Conventional methods cannot process event data directly. Thus, we employ three encoding approaches59here as Frequency,SAE, (Surface of Active Events)and LIF, (Leaky60Integrate-and-Fire) to process continuous DVS event stream into a sequence of frame61images, in order to fit for conventional deep learning algorithms. We provide our codes (in Python) respect to three encoding approaches shown in folders.
+
+4. Contacts
+>>>>>>> 5cd52f5badcc25359193413bee19f765dde4c8da
 
 Questions about these datasets should be directed to:
 guang@in.tum.de
