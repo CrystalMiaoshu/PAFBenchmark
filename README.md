@@ -9,7 +9,7 @@
 
 ## Recording Scene and Equipment
 
-All dataset is recorded in the actual scene, the recording situation is as shown.
+All datasets are recorded in the actual scenes, the recording scenarios are as shown.
 
 <img src="picture/1.jpg" width="400" hegiht="213" align=center />
 
@@ -19,7 +19,7 @@ All dataset is recorded in the actual scene, the recording situation is as shown
 
 ## How to Get Datasets
 
-Because we upload all the data to the cloud server, if the user needs any dataset, you can click the corresponding download address.
+We upload all the datasets to the cloud server. The user can click to download the datasets.
 
  - Pedestrian Detection Dataset [download](https://pan.baidu.com/s/1LBbyy7O5Y8ZpGZkQ2gy9eg)(Extraction code：e1eq) 
 
@@ -29,7 +29,7 @@ Because we upload all the data to the cloud server, if the user needs any datase
 
 
 
-## How to Handle Datasets
+## Ways of Encoding
 
 <img src="picture/2.jpg" width="400" hegiht="213" align=center />
 
