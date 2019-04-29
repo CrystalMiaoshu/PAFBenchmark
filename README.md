@@ -1,4 +1,4 @@
-# Benchmark Datasets for Pedestrian Detection, Action Recognition, and Fall Detection
+# Neuromorphic Benchmark Datasets for Pedestrian Detection, Action Recognition, and Fall Detection
 
 **Shu Miao，Guang Chen，Xiangyu Ning，Yang Zi，Kejia Ren，Zhenshan Bing，Alois Knoll**
 
