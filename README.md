@@ -4,7 +4,7 @@
 
 *Institute of Intelligent Vehicle, Tongji Unversity, Shanghai, China*
 
-*Technische Universit ̈at M ̈unchen, M ̈unchen, Germany*
+*Technical University Munich, Munich, Germany*
 
 <img src="picture/4.jpg" width="400" hegiht="213" align=center />
 
