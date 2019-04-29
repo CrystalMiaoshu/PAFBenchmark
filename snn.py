@@ -8,7 +8,7 @@ import cv2
 import numpy as np
 
 
-def getDVSeventsDavis(file, ROI=np.array([]), numEvents=1e10, startEvent=0, startTime=0):
+def getDVSeventsDavis(file, ROI=np.array([]), numEvents=1e10, startEvent=0, startTime=0):#This function converts an aedat file into a quaternary array
     print('\ngetDVSeventsDavis function called \n')
     sizeX = 240
     sizeY = 180

@@ -6,7 +6,7 @@ import cv2
 import numpy as np
 
 
-def getDVSeventsDavis(file, ROI=np.array([]), numEvents=1e10, startEvent=0, startTime=0):
+def getDVSeventsDavis(file, ROI=np.array([]), numEvents=1e10, startEvent=0, startTime=0):#This function converts an aedat file into a quaternary array
     print('\ngetDVSeventsDavis function called \n')
     sizeX = 346
     sizeY = 260
@@ -95,7 +95,7 @@ def getDVSeventsDavis(file, ROI=np.array([]), numEvents=1e10, startEvent=0, star
 
 if __name__ == '__main__':
     inputfile = 'D:/data_report/5.aedat'
-    T, X, Y, Pol = getDVSeventsDavis(inputfile)
+    T, X, Y, Pol = getDVSeventsDavis(inputfile)#Read the quaternion array
     T = np.array(T).reshape((-1, 1))
 
     X = np.array(X).reshape((-1, 1))
@@ -103,7 +103,7 @@ if __name__ == '__main__':
     Pol = np.array(Pol).reshape((-1, 1))
     #data = np.hstack((T, X, Y, Pol))
     #print(np.shape(data))
-    step_time = 10000 
+    step_time = 10000 #The cumulative time of a frame
     #img = np.zeros((260, 346), dtype=np.uint8)
     start_idx = 0
     end_idx = 0
@@ -129,7 +129,7 @@ if __name__ == '__main__':
             timestamp[data[i,1], data[i,0]]=data_T[i]
             #for a in range(0,260):
             #    for b in range(0,346):cccccc
-        grayscale = np.flip(255*(timestamp-start_time)/step_time, 0).astype(np.uint8)
+        grayscale = np.flip(255*(timestamp-start_time)/step_time, 0).astype(np.uint8)#The normalization formula
         #counter[a][b]=grayscale
                     # print(grayscale)
         cv2.imshow('img',grayscale)

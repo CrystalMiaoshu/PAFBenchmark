@@ -1,8 +1,10 @@
 # Benchmark Datasets for Pedestrian Detection, Action Recognition, and Fall Detection
 
-**Shu Miao，Guang Chen，Xiangyu Ning，Yang Zi**
+**Shu Miao，Guang Chen，Xiangyu Ning，Yang Zi，Kejia Ren，Zhenshan Bing，Alois Knoll**
 
 *Institute of Intelligent Vehicle, Tongji Unversity, Shanghai, China*
+
+*Technische Universit ̈at M ̈unchen, M ̈unchen, Germany*
 
 <img src="picture/4.jpg" width="400" hegiht="213" align=center />
 
@@ -42,4 +44,4 @@ Conventional methods cannot process event data directly. Thus, we employ three e
 Questions about these datasets should be directed to:
 guang@in.tum.de
 
-## For further details please related to our paper. 
+## For further details please related to our paper. If you are going to use datasets, please refer to our article.
