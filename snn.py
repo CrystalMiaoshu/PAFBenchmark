@@ -1,4 +1,4 @@
-# -*- coding: UTF-8
+# This python file is a way to process raw data through LIF
 
 import sys
 import os
@@ -8,30 +8,30 @@ import cv2
 import numpy as np
 
 
-def getDVSeventsDavis(file, ROI=np.array([]), numEvents=1e10, startEvent=0, startTime=0):#This function converts an aedat file into a quaternary array
+def getDVSeventsDavis(file, numEvents=1e10, startTime=0):
+    """ DESCRIPTION: This function reads a given aedat file and converts it into four lists indicating 
+                     timestamps, x-coordinates, y-coordinates and polarities of the event stream. 
+    
+    Args:
+        file: the path of the file to be read, including extension (str).
+        numEvents: the maximum number of events allowed to be read (int, default value=1e10).
+        startTime: the start event timestamp (in microseconds) where the conversion process begins (int, default value=0).
+
+    Return:
+        ts: list of timestamps in microseconds.
+        x: list of x-coordinates in pixels.
+        y: list of y-coordinates in pixels.`
+        pol: list of polarities (0: on -> off, 1: off -> on).       
+    """
     print('\ngetDVSeventsDavis function called \n')
-    sizeX = 240
-    sizeY = 180
+    sizeX = 346
+    sizeY = 260
     x0 = 0
     y0 = 0
     x1 = sizeX
     y1 = sizeY
-    if len(ROI) != 0:
-        if len(ROI) == 4:
-            print('Region of interest specified')
-            x0 = ROI(0)
-            y0 = ROI(1)
-            x1 = ROI(2)
-            y1 = ROI(3)
-        else:
-            print('Unknown ROI argument. Call function as: \n getDVSeventsDavis(file, ROI=[x0, y0, x1, y1], numEvents=nE, startEvent=sE) to specify ROI or\n getDVSeventsDavis(file, numEvents=nE, startEvent=sE) to not specify ROI')
-            return
-
-    else:
-        print('No region of interest specified, reading in entire spatial area of sensor')
-
+   
     print('Reading in at most', str(numEvents))
-    print('Starting reading from event', str(startEvent))
 
     triggerevent = int('400', 16)
     polmask = int('800', 16)
@@ -91,37 +91,45 @@ def getDVSeventsDavis(file, ROI=np.array([]), numEvents=1e10, startEvent=0, star
     return ts, x, y, pol
                          
 
-class SNN():                    # Class of SNN for line detection        
-    #ts  = []                # Timestamps of events
-    #x   = []                # X-coordinates of events
-    #y   = []                # Y-coordinates of events
-    #pol = []                # Polarities of events
+class SNN():
+    """Spiking Neural Network.
 
-    def __init__(self):      # Initialize SNN Class
+    ts: timestamp list of the event stream.
+    x: x-coordinate list of the event stream.
+    y: y-coordinate list of the event stream.
+    pol: polarity list of the event stream.  
+    threshold: threshold of neuron firing.
+    decay: decay of MP with time.
+    margin: margin for lateral inhibition.
+    spikeVal: MP increment for each event.
+    network: MP of each neuron.
+    timenet: firing timestamp for each neuron.
+    firing: firing numbers for each neuron.
+    image: converted output grayscale image.
+    """                    
+    def __init__(self): 
         self.ts = []
         self.x = []
         self.y = []
         self.pol = []
-        self.threshold = 1.2                                             # Threshold of neuron firing
-        self.decay     = 0.02                                            # Decay of MP with time
-        self.margin    = 3                                              # Margin for lateral inhibition
+        self.threshold = 1.2                                          
+        self.decay     = 0.02                                          
+        self.margin    = 3                                             
         self.spikeVal  = 1
-        self.network   = np.zeros((260, 346), dtype = np.float64) # MP of each neuron
-        self.timenet   = np.zeros((260, 346), dtype = np.int64)   # Firing timestamp of each neuron
-        self.image     = np.zeros((260, 346), dtype = np.uint8)  # Image with lines
-        #self.countor   = np.zeros((180, 240), dtype = np.uint8)   # count when exceed the threchold
-        self.output = []
+        self.network   = np.zeros((260, 346), dtype = np.float64)
+        self.timenet   = np.zeros((260, 346), dtype = np.int64)    
+        self.firing = np.zeros((260, 346), dtype = np.int64)
+        self.image = np.zeros((260, 346), dtype = np.int64)
     
     def init_timenet(self, t):
+        """initialize the timenet with timestamp of the first event"""
         self.timenet[:] = t
 
-
-
-    def spiking(self, data):  # Main process
+    def spiking(self, data):
+        """"main process"""
         count = 0
-        imgcount = 0   
+        img_count = 0   
         startindex = 0
-        self.image[:] = 0
 
         for line in data:
             self.ts.insert(count, int(line[0]))
@@ -132,22 +140,22 @@ class SNN():                    # Class of SNN for line detection
             if count == 0:
                 self.init_timenet(self.ts[0])
                 starttime = self.ts[0]
-                # starttime = 479714566     
-
-            #if self.ts[count] - starttime > access:
-            #    imgcount += 1
-            #    imgcount = self.showimage(starttime, starttime + access, imgcount, lum, access, cycle)
-            #    starttime += stepsize
-            #    self.image[:] = 0
-
-            #if self.ts[count] >= starttime: #and self.pol[count] == 0:
+               
             self.neuron_update(count, self.spikeVal)
+            
+            if self.ts[count] - starttime > 20000:
+                self.show_image(img_count)
+                img_count += 1
+                starttime = self.ts[count]
+                self.image *= 0
+                self.firing *= 0
 
             count += 1
 
         print('done')
         
-    def clear_neuron(self, position):                
+    def clear_neuron(self, position):
+        """reset MP value of the fired neuron"""             
         for i in range((-1)*self.margin, self.margin):
             for j in range((-1)*self.margin, self.margin):
                 if position[0]+i<0 or position[0]+i>=180 or position[1]+j<0 or position[1]+j>=180:
@@ -156,6 +164,7 @@ class SNN():                    # Class of SNN for line detection
                     self.network[ position[0]+i ][ position[1]+j ] = 0.0
 
     def neuron_update(self, i, spike_value):
+        """update the MP values in the network"""
         x = self.x[i]
         y = self.y[i]
         escape_time = (self.ts[i]-self.timenet[y][x])/1000.0
@@ -163,45 +172,18 @@ class SNN():                    # Class of SNN for line detection
         self.network[y][x] = residual + spike_value
         self.timenet[y][x] = self.ts[i]
         if self.network[y][x] > self.threshold:
-            self.spike_output(i)       # countor + 1
+            self.firing[y][x] += 1      # countor + 1
             self.clear_neuron([x,y])
-        
-    def spike_output(self, i):
-        #self.countor[y][x] += 1
-        outputline = []
-        outputline.append(self.ts[i])
-        outputline.append(self.x[i])
-        outputline.append(self.y[i])
-        outputline.append(self.pol[i])
-        self.output.append(outputline)
+
+    def show_image(self, img_count):
+        """convert to and save grayscale images"""
+        self.image = np.flip(255*2*(1/(1+np.exp(-self.firing))-0.5),0)
+        outputfile = 'D:/ms/' + str(img_count) + '.png'
+        cv2.imshow('img', self.image)
+        cv2.waitKey(5)
+        cv2.imwrite(outputfile, self.image)
+
     
-    def showimage(self, starttime, endtime, imgcount, lum, access, cycle):
-        #maxofcountor = self.countor.max()
-        #if maxofcountor == 0:
-            #imgcount -= 1
-        #else:
-        for i in range(0, 240):
-            for j in range(0, 180):
-                grayscale = (int(255 * (1.0 / (1 + np.exp(-int(self.countor[j][i]) / 2.0)))) - 127) * 2    # the result isnot good
-                # print(grayscale)
-                # grayscale = int(255 * self.countor[j][i] / maxofcountor)
-                self.image[j][i] = (grayscale)
-        #self.image = cv2.flip(self.image, 0)
-        #cv2.imshow('image', self.image)
-        #cv2.waitKey(1)
-        if lum == 1:
-            filepath = 'cue1/light/'
-        else:
-            filepath = 'cue1/dark/'
-        directory = filepath + str(int(access/1000)) + 'ms/' + str(cycle)
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-        file = directory + '/pcd' + str(imgcount - 1).zfill(4) + 'r.png'
-        cv2.imwrite(file, self.image)
-        #print('%d   %d  %d' % (starttime, endtime, imgcount))
-        self.countor = np.zeros((180, 240), dtype=np.uint8)
-        return imgcount
-        
 if __name__ == '__main__':
     inputfile = 'D:/data_report/5.aedat'
     T, X, Y, Pol = getDVSeventsDavis(inputfile)
@@ -213,5 +195,4 @@ if __name__ == '__main__':
     print(np.shape(data))
     dvs_snn = SNN()
     dvs_snn.spiking(data)
-    np.savetxt('D:/output5.txt', np.array(dvs_snn.output), fmt='%.0f', delimiter='\t', newline='\n')
 

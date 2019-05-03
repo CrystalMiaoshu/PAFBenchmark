@@ -6,7 +6,21 @@ import cv2
 import numpy as np
 
 
-def getDVSeventsDavis(file, ROI=np.array([]), numEvents=1e10, startEvent=0, startTime=0):#This function converts an aedat file into a quaternary array
+def getDVSeventsDavis(file, numEvents=1e10, startTime=0):
+    """ DESCRIPTION: This function reads a given aedat file and converts it into four lists indicating 
+                     timestamps, x-coordinates, y-coordinates and polarities of the event stream. 
+    
+    Args:
+        file: the path of the file to be read, including extension (str).
+        numEvents: the maximum number of events allowed to be read (int, default value=1e10).
+        startTime: the start event timestamp (in microseconds) where the conversion process begins (int, default value=0).
+
+    Return:
+        ts: list of timestamps in microseconds.
+        x: list of x-coordinates in pixels.
+        y: list of y-coordinates in pixels.
+        pol: list of polarities (0: on -> off, 1: off -> on).       
+    """
     print('\ngetDVSeventsDavis function called \n')
     sizeX = 346
     sizeY = 260
@@ -14,22 +28,9 @@ def getDVSeventsDavis(file, ROI=np.array([]), numEvents=1e10, startEvent=0, star
     y0 = 0
     x1 = sizeX
     y1 = sizeY
-    if len(ROI) != 0:
-        if len(ROI) == 4:
-            print('Region of interest specified')
-            x0 = ROI(0)
-            y0 = ROI(1)
-            x1 = ROI(2)
-            y1 = ROI(3)
-        else:
-            print('Unknown ROI argument. Call function as: \n getDVSeventsDavis(file, ROI=[x0, y0, x1, y1], numEvents=nE, startEvent=sE) to specify ROI or\n getDVSeventsDavis(file, numEvents=nE, startEvent=sE) to not specify ROI')
-            return
-
-    else:
-        print('No region of interest specified, reading in entire spatial area of sensor')
-
+    
     print('Reading in at most', str(numEvents))
-    print('Starting reading from event', str(startEvent))
+    
 
     triggerevent = int('400', 16)
     polmask = int('800', 16)
@@ -85,11 +86,6 @@ def getDVSeventsDavis(file, ROI=np.array([]), numEvents=1e10, startEvent=0, star
 
     print('Total number of events read =', numeventsread)
     print('Total number of DVS events returned =', len(ts))
-
-    #ts[:] = [x - ts[0] for x in ts]  # absolute time -> relative time
-    #x[:] = [int(a) for a in x]
-    #y[:] = [int(a) for a in y]
-    
     return ts, x, y, pol
 
 
@@ -101,10 +97,7 @@ if __name__ == '__main__':
     X = np.array(X).reshape((-1, 1))
     Y = np.array(Y).reshape((-1, 1))
     Pol = np.array(Pol).reshape((-1, 1))
-    #data = np.hstack((T, X, Y, Pol))
-    #print(np.shape(data))
     step_time = 10000 #The cumulative time of a frame
-    #img = np.zeros((260, 346), dtype=np.uint8)
     start_idx = 0
     end_idx = 0
     start_time = T[0]
@@ -113,27 +106,25 @@ if __name__ == '__main__':
     img_count = 0
     
     while end_time <= T[-1]:
-        #end_time = start_time + step_time
+        
  
         while T[end_idx] < end_time:
             end_idx = end_idx + 1
-        # print(end_idx)
+        
         data_x = np.array(X[start_idx:end_idx]).reshape((-1, 1))
         data_y = np.array(Y[start_idx:end_idx]).reshape((-1, 1))
         data_T = np.array(T[start_idx:end_idx]).reshape((-1, 1))
         data = np.column_stack((data_x, data_y)).astype(np.int32)
-        #print(type(data[0,1]))
+        
         timestamp=start_time*np.ones((260,346))
         
         for i in range(0, data.shape[0]):
             timestamp[data[i,1], data[i,0]]=data_T[i]
-            #for a in range(0,260):
-            #    for b in range(0,346):cccccc
+           
         grayscale = np.flip(255*(timestamp-start_time)/step_time, 0).astype(np.uint8)#The normalization formula
-        #counter[a][b]=grayscale
-                    # print(grayscale)
+        
         cv2.imshow('img',grayscale)
-        # print(counter)
+       
         cv2.waitKey(5)
         wfile='D:/ms1/' + str(img_count) + '.png'
         cv2.imwrite(wfile,grayscale)

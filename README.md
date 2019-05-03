@@ -1,4 +1,4 @@
-# Neuromorphic Benchmark Datasets for Pedestrian Detection, Action Recognition, and Fall Detection
+# Neuromorphic Vision Datasets for Pedestrian Detection, Action Recognition, and Fall Detection
 
 **Shu Miao，Guang Chen，Xiangyu Ning，Yang Zi，Kejia Ren，Zhenshan Bing，Alois Knoll**
 
@@ -38,6 +38,7 @@ We upload all the datasets to the cloud server. The user can click to download t
 <img src="picture/2.jpg" width="400" hegiht="213" align=center />
 
 Conventional methods cannot process event data directly. Thus, we employ three encoding approaches here as Frequency, SAE(Surface of Active Events) and LIF(Leaky60Integrate-and-Fire) to process continuous DVS event stream into a sequence of frame images, in order to fit for conventional deep learning algorithms. We provide our codes (in Python) respect to three encoding approaches shown in folders.
+If you want to use the code for three encoding methods, you can adjust parameters in the code, as well as the file path, and in the correct path to run.
 
 ## Contacts
 
