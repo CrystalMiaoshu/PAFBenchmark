@@ -43,7 +43,7 @@ Conventional methods cannot process event data directly. Thus, we employ three e
 ### How to use the three codes of encoding 
 
 
-And we provided a toy dataset file `toy.aedat` to verify our code for encoding. You can download this file, put it in your destination folder. 
+We provided a toy dataset file `toy.aedat` to verify our code for encoding. You can download this file, put it in your destination folder. 
 
 
 We provides basic tutorials about the usage of three encoding codes.
