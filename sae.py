@@ -4,6 +4,7 @@ import struct
 import math
 import cv2
 import numpy as np
+import argparse
 
 
 def getDVSeventsDavis(file, numEvents=1e10, startTime=0):
@@ -90,7 +91,14 @@ def getDVSeventsDavis(file, numEvents=1e10, startTime=0):
 
 
 if __name__ == '__main__':
-    inputfile = 'D:/data_report/5.aedat'
+     # parse the command line argument
+    parser = argparse.ArgumentParser(description='SAE for encoding.')
+    parser.add_argument('file_path', 
+                    help='The .aedat file path.')
+    args = parser.parse_args()
+
+    inputfile = args.file_path
+    
     T, X, Y, Pol = getDVSeventsDavis(inputfile)#Read the quaternion array
     T = np.array(T).reshape((-1, 1))
 
