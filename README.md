@@ -40,10 +40,10 @@ We upload all the datasets to the cloud server. The user can click to download t
 Conventional methods cannot process event data directly. Thus, we employ three encoding approaches here as Frequency, SAE(Surface of Active Events) and LIF(Leaky60Integrate-and-Fire) to process continuous DVS event stream into a sequence of frame images, in order to fit for conventional deep learning algorithms. We provide our codes (in Python) respect to three encoding approaches shown in folders.
 
 
+### How to use the three codes of encoding 
 
 
-
-And we provided a toy dataset to verify our code for encoding. You can download this file, put it in your destination folder. 
+And we provided a toy dataset file `toy.aedat` to verify our code for encoding. You can download this file, put it in your destination folder. 
 
 
 We provides basic tutorials about the usage of three encoding codes.
