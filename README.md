@@ -61,6 +61,6 @@ If you want to use SAE and Frequency you can replace snn with sae or frequency.
 ## Contacts
 
 Questions about these datasets should be directed to:
-guang@in.tum.de
+ms_0124@163.com
 
-## For further details please related to our paper. If you are going to use datasets, please refer to our article.
+## For further details please related to our paper. If you are going to use datasets, please cite our article.
