@@ -48,7 +48,7 @@ We provided a toy dataset file `toy.aedat` to verify our code for encoding. You 
 
 We provides basic tutorials about the usage of three encoding codes.
 
-If you want to use the code of SNN.py,you can enter the following command.
+If you want to use the code of snn.py,you can enter the following command.
 
 `python snn.py /path/to/aedat/file`
 
