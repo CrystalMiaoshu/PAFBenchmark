@@ -52,7 +52,7 @@ If you want to use the code of snn.py,you can enter the following command.
 
 `python snn.py /path/to/aedat/file`
 
-If you want to use SAE and Frequency you can replace SNN with SAE or Frequency.
+If you want to use SAE and Frequency you can replace snn with sae or frequency.
 
 
 
