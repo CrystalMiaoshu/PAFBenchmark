@@ -29,7 +29,7 @@ We upload all the datasets to the cloud server. The user can click to download t
 
 - Fall Detection Dataset [download](https://pan.baidu.com/s/1mHFaDSNJU0iLvgQrZx9DKA) (Extraction code：m3f6)
 
-### A large part of pedestrian detection raw data are converted to 6800 frame images through SAE encoding method with frame interval of 20ms. In our experiment, all these images have been labelled via annotation tool -labelImg.
+### A large part of pedestrian detection raw data are converted to 4670 frame images through SAE encoding method with frame interval of 20ms. In our experiment, all these images have been labelled via annotation tool -labelImg.
 
 
 
