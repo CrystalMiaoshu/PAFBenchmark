@@ -37,7 +37,7 @@ We upload all the datasets to the cloud server. The user can click to download t
 
 <img src="picture/2.jpg" width="400" hegiht="213" align=center />
 
-Conventional methods cannot process event data directly. Thus, we employ three encoding approaches here as Frequency, SAE(Surface of Active Events) and LIF(Leaky60Integrate-and-Fire) to process continuous DVS event stream into a sequence of frame images, in order to fit for conventional deep learning algorithms. We provide our codes (in Python) respect to three encoding approaches shown in folders.
+Conventional methods cannot process event data directly. Thus, we employ three encoding approaches here as Frequency, SAE(Surface of Active Events) and LIF(Leaky Integrate-and-Fire) to process continuous DVS event stream into a sequence of frame images, in order to fit for conventional deep learning algorithms. We provide our codes (in Python) respect to three encoding approaches shown in folders.
 
 
 ### How to use the three codes of encoding 
@@ -65,4 +65,12 @@ ms_0124@163.com
 
 ## For further details please related to our paper. If you are going to use datasets, please cite our article.
 
-Miao S, Chen G, Ning X, et al. Neuromorphic Benchmark Datasets for Pedestrian Detection, Action Recognition, and Fall Detection[J]. Frontiers in neurorobotics, 2019, 13: 38.
+@article{miao2019neuromorphic,
+  title={Neuromorphic Benchmark Datasets for Pedestrian Detection, Action Recognition, and Fall Detection},
+  author={Miao, Shu and Chen, Guang and Ning, Xiangyu and Zi, Yang and Ren, Kejia and Bing, Zhenshan and Knoll, Alois C},
+  journal={Frontiers in neurorobotics},
+  volume={13},
+  pages={38},
+  year={2019},
+  publisher={Frontiers}
+}
