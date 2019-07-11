@@ -64,3 +64,5 @@ Questions about these datasets should be directed to:
 ms_0124@163.com
 
 ## For further details please related to our paper. If you are going to use datasets, please cite our article.
+
+Miao S, Chen G, Ning X, et al. Neuromorphic Benchmark Datasets for Pedestrian Detection, Action Recognition, and Fall Detection[J]. Frontiers in neurorobotics, 2019, 13: 38.
