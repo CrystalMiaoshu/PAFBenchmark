@@ -66,11 +66,25 @@ guang@in.tum.de
 ## For further details please related to our paper. If you are going to use datasets, please cite our article.
 
 @article{miao2019neuromorphic,
-  title={Neuromorphic Benchmark Datasets for Pedestrian Detection, Action Recognition, and Fall Detection},
-  author={Miao, Shu and Chen, Guang and Ning, Xiangyu and Zi, Yang and Ren, Kejia and Bing, Zhenshan and Knoll, Alois C},
+  
+  title={Neuromorphic Benchmark Datasets for Pedestrian Detection, Action 
+
+  Recognition, and Fall Detection},
+
+  author={Miao, Shu and Chen, Guang and Ning, Xiangyu and Zi, Yang and Ren, 
+
+  Kejia and Bing, Zhenshan and Knoll, Alois C},
+
   journal={Frontiers in neurorobotics},
+
   volume={13},
+
   pages={38},
+
   year={2019},
+
   publisher={Frontiers}
+
 }
+
+
